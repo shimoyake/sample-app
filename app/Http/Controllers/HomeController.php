@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Memo;
+use App\Models\Memo;
 
 class HomeController extends Controller
 {
@@ -45,7 +45,6 @@ class HomeController extends Controller
         $memo_id = Memo::insertGetId([
             'content' => $data['content'],
              'user_id' => $data['user_id'], 
-             'tag_id' => $tag_id,
              'status' => 1
         ]);
         
