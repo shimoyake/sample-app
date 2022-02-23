@@ -5,8 +5,11 @@
     <div class="card w-100">
         <div class="card-header">新規メモ作成</div>
         <div class="card-body">
+            <!--データを送るのでメソッドはPOST-->
             <form method='POST' action="/store">
+                <!--@csrf　laravelのセキュリティーとして入れる、入ってないとエラー出る-->
                 @csrf
+                <!--input type='hidden'でユーザーに情報を見せることなく、DBとやりとり可能になる-->
                 <input type='hidden' name='user_id' value="{{ $user['id'] }}">
                 <div class="form-group">
                      <textarea name='content' class="form-control"rows="10"></textarea>
