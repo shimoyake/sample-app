@@ -28,6 +28,9 @@ class HomeController extends Controller
 
     public function create()
     {
-        return view('create');
+        //変数 $userでログイン中のユーザー情報を渡す
+        $user = \Auth ::user();
+        //compactで受け取っユーザー情報をviewで表示させる
+        return view('create', compact('user'));
     }
 }
