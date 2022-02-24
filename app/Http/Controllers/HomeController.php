@@ -24,7 +24,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user = \Auth ::user();
+        //メモ一覧を取得
+        //whereで条件を指定できる（指定したuse_idのみ取得）
+        //->whereで'かつ'の条件（指定したuser_idかつstatus1の時）
+        //orderByで並べ順を指定 ASC=大きい順、DESC=小さい順
+        $memos = Memo::where('user_id', $user['id'])->where('status', 1)->orderBy('updated_at', 'DESC')->get();
+
+        return view('home', compact('user', 'memos'));
     }
 
     public function create()
