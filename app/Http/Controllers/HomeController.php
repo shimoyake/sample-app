@@ -75,7 +75,7 @@ class HomeController extends Controller
         $inputs = $request->all();
         // dd($inputs);
         //whereでアップデートしたいメモを指定（忘れると全て更新されてしまうので注意）
-        Memo::where('id', $id)->update(['content' => $inputs['content'], 'tag_id' => $inputs['tag_id'] ]);
+        Memo::where('id', $id)->update(['content' => $inputs['content']]);
         return redirect()->route('home');
     }
 }
