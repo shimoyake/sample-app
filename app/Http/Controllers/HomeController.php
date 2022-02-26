@@ -58,7 +58,7 @@ class HomeController extends Controller
         // リダイレクト処理
         return redirect()->route('home');
     }
-    
+
     public function edit($id){
         // 該当するIDのメモをデータベースから取得
         $user = \Auth::user();
@@ -67,5 +67,14 @@ class HomeController extends Controller
         //   dd($memo);
         //取得したメモをViewに渡す
         return view('edit',compact('memo'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $inputs = $request->all();
+        // dd($inputs);
+        //whereでアップデートしたいメモを指定（忘れると全て更新されてしまうので注意）
+        Memo::where('id', $id)->update(['content' => $inputs['content'], 'tag_id' => $inputs['tag_id'] ]);
+        return redirect()->route('home');
     }
 }
