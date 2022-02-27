@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+//モデル作成→ここに追記
 use App\Models\Memo;
+use App\Models\Tag;
 
 class HomeController extends Controller
 {
@@ -49,10 +51,14 @@ class HomeController extends Controller
         // dd($data);
         // POSTされたデータをDB（memosテーブル）に挿入
         // MEMOモデルにDBへ保存する命令を出す
+        
+            //先にタグをインサート
+            $tag_id = Tag::insertGetId(['name' => $data['tag'], 'user_id' => $data['user_id']]);
 
         $memo_id = Memo::insertGetId([
             'content' => $data['content'],
              'user_id' => $data['user_id'], 
+             'tag_id' => $tag_id,
              'status' => 1
         ]);
         
@@ -68,7 +74,8 @@ class HomeController extends Controller
         //   dd($memo);
         $memos = Memo::where('user_id', $user['id'])->where('status', 1)->orderBy('updated_at', 'DESC')->get();
         //取得したメモをViewに渡す
-        return view('edit',compact('memo', 'user', 'memos'));
+        //$tags = Tag::where(user_id, $user['id'])->get();
+        return view('edit',compact('memo', 'user', 'memos', 'tags'));
     }
 
     public function update(Request $request, $id)
