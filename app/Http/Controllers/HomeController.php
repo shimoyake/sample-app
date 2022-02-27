@@ -38,8 +38,9 @@ class HomeController extends Controller
     {
         //変数 $userでログイン中のユーザー情報を渡す
         $user = \Auth ::user();
+        $memos = Memo::where('user_id', $user['id'])->where('status', 1)->orderBy('updated_at', 'DESC')->get();
         //compactで受け取っユーザー情報をviewで表示させる
-        return view('create', compact('user'));
+        return view('create', compact('user', 'memos'));
     }
 
     public function store(Request $request)
