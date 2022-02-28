@@ -18,7 +18,8 @@
                      <textarea name='content' class="form-control"rows="10">{{ $memo['content'] }}</textarea>
                 </div>
                 <div class="form-group">
-                    <select class='form-control' name='tag_id'>
+                    <label for="tag">タグ</label>
+                    <input name='tag' type="text" name='tag_id' class="form-control" id="tag" placeholder="タグを入力">
              
                     </select>
                 </div>
