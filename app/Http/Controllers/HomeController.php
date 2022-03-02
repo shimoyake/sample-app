@@ -41,8 +41,15 @@ class HomeController extends Controller
         // POSTされたデータをDB（memosテーブル）に挿入
         // MEMOモデルにDBへ保存する命令を出す
         
+
+        // 同じタグがあるか確認
+        $exist_tag = Tag::where('name', $data['tag'])->where('user_id', $data['user_id'])->first();
+        if( empty($exist_tag['id']) ){
             //先にタグをインサート
             $tag_id = Tag::insertGetId(['name' => $data['tag'], 'user_id' => $data['user_id']]);
+        }else{
+            $tag_id = $exist_tag['id'];
+        }
 
         $memo_id = Memo::insertGetId([
             'content' => $data['content'],
@@ -82,6 +89,9 @@ class HomeController extends Controller
         Memo::where('id', $id)->update([ 'status' => 2 ]);
         // ↓は物理削除
         // Memo::where('id', $id)->delete();
+
+        $inputs = $request->all();
+        Tag::where('id', $id)->update([ 'status' => 2 ]);
 
         return redirect()->route('home')->with('success', 'メモの削除が完了しました！');
     }
