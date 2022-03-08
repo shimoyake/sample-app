@@ -19,7 +19,10 @@
                 </div>
                 <div class="form-group">
                     <label for="tag">タグ</label>
-                    <input name='tag' type="text" name='tag_id' class="form-control" id="tag" placeholder="タグを入力">
+                    @foreach($tags AS $tag)
+                    <input name='tag' type="text" name='tag_id' class="form-control" id="tag" placeholder="{{ $tag['name'] }}">
+                    @endforeach
+                    
              
                     </select>
                 </div>

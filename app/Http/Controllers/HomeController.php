@@ -67,9 +67,10 @@ class HomeController extends Controller
         $user = \Auth::user();
         $memo = Memo::where('status', 1)->where('id', $id)->where('user_id', $user['id'])
           ->first();
+        $tag = 'tag_name';
         //   dd($memo);
         //取得したメモをViewに渡す
-        return view('edit',compact('memo'));
+        return view('edit',compact('memo', 'tag'));
     }
 
     public function update(Request $request, $id)
